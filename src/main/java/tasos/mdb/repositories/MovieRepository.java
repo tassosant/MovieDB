@@ -10,4 +10,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     //I will test it if it is correct without the alias
     @Query("Select m from Movie m where m.title like %?1%")
     Set<Movie> findAllByName(String name);
+
+   /* @Query("select m from Movie m where m.id=?1")
+    Movie findById(int id);*/
 }

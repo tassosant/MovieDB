@@ -14,5 +14,5 @@ public class FilmCharacterDTO {
     private String fullName;
     private String alias;
     private String gender;
-    private Set<Movie> movies;
+    private Set<Integer> movies;
 }

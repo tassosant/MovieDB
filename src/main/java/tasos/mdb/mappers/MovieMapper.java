@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 
 
 
-
+//I created manually the map because I had a bug issue
 public interface MovieMapper{
 
 
-
+    Movie movieDTOtoMovie (MovieDTO movieDTO);
     MovieDTO movieToMovieDTO(Movie movie);
 
     Collection<MovieDTO> movieToMovieDTO(Collection<Movie> movie);

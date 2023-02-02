@@ -10,6 +10,9 @@ import tasos.mdb.models.FilmCharacter;
 import tasos.mdb.models.Franchise;
 import tasos.mdb.models.Gender;
 import tasos.mdb.models.Movie;
+import tasos.mdb.repositories.FranchiseRepository;
+import tasos.mdb.services.franchise.FranchiseService;
+import tasos.mdb.services.franchise.FranchiseServiceImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,9 +20,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-@Component
-@Mapper(componentModel = "spring")
-public abstract class MovieMapperImpl implements MovieMapper{
+public class MovieMapperImpl implements MovieMapper{
+
+    private final FranchiseRepository franchiseRepository;
+
+    public MovieMapperImpl(FranchiseRepository franchiseRepository) {
+        this.franchiseRepository = franchiseRepository;
+    }
+
     @Override
     public MovieDTO movieToMovieDTO(Movie movie){
         if(movie==null)
@@ -46,7 +54,7 @@ public abstract class MovieMapperImpl implements MovieMapper{
 
         return movie.getFranchise().getId();
     }
-
+    @Override
     public Collection<MovieDTO> movieToMovieDTO(Collection<Movie> movies){
         if(movies==null){
             return null;
@@ -57,6 +65,29 @@ public abstract class MovieMapperImpl implements MovieMapper{
             collection.add(movieToMovieDTO(movie));
         }
         return collection;
+    }
+
+    @Override
+    public Movie movieDTOtoMovie (MovieDTO movieDTO){
+        if(movieDTO == null){
+            return null;
+        }
+        Movie movie = new Movie();
+        movie.setId(movieDTO.getId());
+        movie.setTitle(movieDTO.getTitle());
+        movie.setGenre(movieDTO.getGenre());
+        movie.setYear(movieDTO.getYear());
+        movie.setDirector(movieDTO.getDirector());
+        movie.setPicture(movieDTO.getPicture());
+        movie.setTrailer(movieDTO.getTrailer());
+        movie.setFranchise(franchiseIdToFranchise(movieDTO.getFranchise()));
+        return  movie;
+    }
+
+    private Franchise franchiseIdToFranchise(int id){
+        Franchise franchise = franchiseRepository.findById(id).get();
+
+        return franchise;
     }
 
 }

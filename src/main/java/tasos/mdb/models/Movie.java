@@ -1,5 +1,6 @@
 package tasos.mdb.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -32,13 +33,17 @@ public class Movie {
 
     @ManyToOne
     @JoinColumn(name = "franchise_id")
-    private Franchise franchise;
 
+    //@JsonBackReference
+    private Franchise franchise;
     @ManyToMany
+
     @JoinTable(
             name = "movies_characters",
             joinColumns = {@JoinColumn(name = "movie_id")},
             inverseJoinColumns = {@JoinColumn(name= "character_id")}
     )
+    //@JsonBackReference
+
     private Set<FilmCharacter> filmCharacters;
 }
