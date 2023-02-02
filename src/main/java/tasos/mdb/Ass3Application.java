@@ -7,9 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 //@SpringBootApplication
-@EnableAutoConfiguration
-@ComponentScan
-@SpringBootConfiguration
+@SpringBootApplication
 public class Ass3Application {
 
     public static void main(String[] args) {

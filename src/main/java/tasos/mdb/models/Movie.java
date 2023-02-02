@@ -33,17 +33,12 @@ public class Movie {
 
     @ManyToOne
     @JoinColumn(name = "franchise_id")
-
-    //@JsonBackReference
     private Franchise franchise;
     @ManyToMany
-
     @JoinTable(
             name = "movies_characters",
             joinColumns = {@JoinColumn(name = "movie_id")},
             inverseJoinColumns = {@JoinColumn(name= "character_id")}
     )
-    //@JsonBackReference
-
     private Set<FilmCharacter> filmCharacters;
 }

@@ -16,7 +16,6 @@ public class Franchise {
     @Column(name = "franchise_id")
     private int id;
     @Column(name = "franchise_name", length = 40, nullable = false)
-
     private String name;
 
     private String description;

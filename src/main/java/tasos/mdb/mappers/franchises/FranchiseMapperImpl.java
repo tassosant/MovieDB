@@ -1,15 +1,13 @@
-package tasos.mdb.mappers;
+package tasos.mdb.mappers.franchises;
 
 import org.springframework.stereotype.Service;
 import tasos.mdb.models.DTO.Franchises.FranchiseDTO;
-import tasos.mdb.models.DTO.Movies.MovieDTO;
 import tasos.mdb.models.Franchise;
 import tasos.mdb.models.Movie;
 import tasos.mdb.repositories.MovieRepository;
-import tasos.mdb.services.movie.MovieService;
 
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -25,6 +23,8 @@ public class FranchiseMapperImpl implements FranchiseMapper{
     }
 
     public FranchiseDTO franchiseToFranchiseDTO(Franchise franchise){
+        if(franchise==null)
+            return null;
         FranchiseDTO franchiseDTO =new FranchiseDTO();
         franchiseDTO.setId(franchise.getId());
         franchiseDTO.setName(franchise.getName());
@@ -33,6 +33,8 @@ public class FranchiseMapperImpl implements FranchiseMapper{
         return franchiseDTO;
     }
     public Franchise franchiseDTOtoFranchise(FranchiseDTO franchiseDTO){
+        if(franchiseDTO == null)
+            return null;
         Franchise franchise = new Franchise();
         franchise.setId(franchiseDTO.getId());
         franchise.setName(franchiseDTO.getName());
@@ -41,6 +43,16 @@ public class FranchiseMapperImpl implements FranchiseMapper{
         franchise.setMovies(moviesIntToMovies(franchiseDTO.getMovies()));
 
         return franchise;
+    }
+
+    public Collection<FranchiseDTO> franchiseToFranchiseDTO(Collection<Franchise> values){
+        if(values==null)
+            return null;
+        Set<FranchiseDTO> franchiseDTOs = new HashSet<>(values.size());
+        for (Franchise value:values){
+            franchiseDTOs.add(franchiseToFranchiseDTO(value));
+        }
+        return franchiseDTOs;
     }
 
     private Set<Movie> moviesIntToMovies(Set<Integer> values){

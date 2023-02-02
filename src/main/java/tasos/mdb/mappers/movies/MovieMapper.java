@@ -1,4 +1,4 @@
-package tasos.mdb.mappers;
+package tasos.mdb.mappers.movies;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

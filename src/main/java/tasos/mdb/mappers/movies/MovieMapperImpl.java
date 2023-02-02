@@ -1,23 +1,13 @@
-package tasos.mdb.mappers;
+package tasos.mdb.mappers.movies;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Named;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import tasos.mdb.models.DTO.FilmCharacters.FilmCharacterDTO;
 import tasos.mdb.models.DTO.Movies.MovieDTO;
-import tasos.mdb.models.FilmCharacter;
 import tasos.mdb.models.Franchise;
-import tasos.mdb.models.Gender;
 import tasos.mdb.models.Movie;
 import tasos.mdb.repositories.FranchiseRepository;
-import tasos.mdb.services.franchise.FranchiseService;
-import tasos.mdb.services.franchise.FranchiseServiceImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class MovieMapperImpl implements MovieMapper{
@@ -85,6 +75,9 @@ public class MovieMapperImpl implements MovieMapper{
     }
 
     private Franchise franchiseIdToFranchise(int id){
+        if (id==0) {
+            return null;
+        }
         Franchise franchise = franchiseRepository.findById(id).get();
 
         return franchise;

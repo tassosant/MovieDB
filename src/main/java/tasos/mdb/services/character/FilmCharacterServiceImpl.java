@@ -7,10 +7,10 @@ import tasos.mdb.repositories.FilmCharacterRepository;
 
 import java.util.Collection;
 @Service
-public class MovieCharacterServiceImpl implements MovieCharacterService{
+public class FilmCharacterServiceImpl implements FilmCharacterService {
     private final FilmCharacterRepository filmCharacterRepository;
 
-    public MovieCharacterServiceImpl(FilmCharacterRepository filmCharacterRepository) {
+    public FilmCharacterServiceImpl(FilmCharacterRepository filmCharacterRepository) {
         this.filmCharacterRepository = filmCharacterRepository;
     }
 

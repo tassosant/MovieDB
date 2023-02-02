@@ -2,9 +2,9 @@ package tasos.mdb.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tasos.mdb.mappers.MovieMapper;
+import tasos.mdb.mappers.filmCharacters.FilmCharacterMapper;
+import tasos.mdb.mappers.movies.MovieMapper;
 import tasos.mdb.models.DTO.Movies.MovieDTO;
-import tasos.mdb.models.Movie;
 import tasos.mdb.services.movie.MovieService;
 
 import java.net.URI;
@@ -17,9 +17,12 @@ public class MovieController {
     private final MovieService movieService;
     private final MovieMapper movieMapper;
 
-    public MovieController(MovieService movieService, MovieMapper movieMapper) {
+    private final FilmCharacterMapper filmCharacterMapper;
+
+    public MovieController(MovieService movieService, MovieMapper movieMapper, FilmCharacterMapper filmCharacterMapper) {
         this.movieService = movieService;
         this.movieMapper = movieMapper;
+        this.filmCharacterMapper = filmCharacterMapper;
     }
 
 
@@ -62,12 +65,12 @@ public class MovieController {
     @GetMapping("{id}/characters")
     public ResponseEntity getCharacters(@PathVariable int id){
 
-        return ResponseEntity.ok(movieService.getCharacters(id));
+        return ResponseEntity.ok(filmCharacterMapper.filmCharacterToFilmCharacterDTO(movieService.getCharacters(id)));
     }
 
     @PutMapping("{id}/characters")
-    public ResponseEntity updateCharacters(@PathVariable int id,@RequestBody int[] filmCharactersId){
-        movieService.updateCharacters(id,filmCharactersId);
+    public ResponseEntity updateCharacters(@PathVariable int id,@RequestBody int[] filmCharacterIds){
+        movieService.updateCharacters(id,filmCharacterIds);
         return ResponseEntity.noContent().build();
     }
 }

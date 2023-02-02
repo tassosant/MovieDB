@@ -2,8 +2,6 @@ package tasos.mdb.models.DTO.FilmCharacters;
 
 import lombok.Getter;
 import lombok.Setter;
-import tasos.mdb.models.Gender;
-import tasos.mdb.models.Movie;
 
 import java.util.Set;
 
