@@ -1,6 +1,7 @@
 package tasos.mdb.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import tasos.mdb.models.Movie;
 
@@ -13,4 +14,10 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
    /* @Query("select m from Movie m where m.id=?1")
     Movie findById(int id);*/
+
+    @Query("UPDATE Movie m\n" +
+            "SET m.franchise.id = ?1\n" +
+            "WHERE m.id =?2")
+    @Modifying
+    int updateById(int franchiseId,int movieId);
 }

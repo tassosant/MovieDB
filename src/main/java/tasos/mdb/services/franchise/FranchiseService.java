@@ -10,4 +10,6 @@ public interface FranchiseService extends CrudService<Franchise, Integer> {
     Collection<Franchise> findAllByName(String name);
     Collection<Movie> getMovies(int franchiseId);
     void updateMovies(int franchiseId, int[] movies);
+
+
 }

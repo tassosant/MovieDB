@@ -13,4 +13,6 @@ public interface MovieService extends CrudService<Movie, Integer> {
 
     Collection<FilmCharacter> getCharacters(int movieId);
 
+    int updateById(int franchiseId,int movieId);
+
 }

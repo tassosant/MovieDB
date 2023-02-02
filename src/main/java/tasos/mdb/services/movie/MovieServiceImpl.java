@@ -78,10 +78,16 @@ public class MovieServiceImpl implements MovieService {
         //Iterate through integer array filmCharacters
         for(int id : filmCharacters){
             filmCharacterSet.add(filmCharacterRepository.findById(id).get());
+
         }
         movie.setFilmCharacters(filmCharacterSet);
         movieRepository.save(movie);
     }
 
+    @Override
+    public int updateById(int franchiseId,int movieId){
+        return 0;
+
+    }
 
 }
