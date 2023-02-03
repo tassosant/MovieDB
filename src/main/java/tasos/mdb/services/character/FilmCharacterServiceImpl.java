@@ -43,7 +43,13 @@ public class FilmCharacterServiceImpl implements FilmCharacterService {
     }
     @Override
     public void deleteById(Integer id){
+        deleteCharacters(id);
         filmCharacterRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteCharacters(int characterId){
+        filmCharacterRepository.deleteCharacters(characterId);
     }
 
     @Override

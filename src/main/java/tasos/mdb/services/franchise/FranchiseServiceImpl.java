@@ -54,9 +54,13 @@ public class FranchiseServiceImpl implements FranchiseService{
 
     @Override
     public void deleteById(Integer id){
+        deleteFranchiseByIdInMovies(id);
         franchiseRepository.deleteById(id);
     }
-
+    @Override
+    public void deleteFranchiseByIdInMovies(int franchiseId){
+        franchiseRepository.deleteFranchiseByIdInMovies(franchiseId);
+    }
     @Override
     public boolean exists(Integer id){
         return franchiseRepository.existsById(id);

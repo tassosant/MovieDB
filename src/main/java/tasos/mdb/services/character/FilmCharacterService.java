@@ -7,4 +7,5 @@ import java.util.Collection;
 
 public interface FilmCharacterService extends CrudService<FilmCharacter, Integer> {
     Collection<FilmCharacter> findAllByName(String name);
+    void deleteCharacters(int characterId);
 }

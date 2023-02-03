@@ -11,6 +11,8 @@ public interface FranchiseService extends CrudService<Franchise, Integer> {
     Collection<Movie> getMovies(int franchiseId);
     void updateMovies(int franchiseId, int[] movies);
 
+    void deleteFranchiseByIdInMovies(int franchiseId);
+
     //Collection<Character> getAllCharacters(int franchiseId);
 
 
