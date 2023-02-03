@@ -1,9 +1,17 @@
 package tasos.mdb.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tasos.mdb.mappers.filmCharacters.FilmCharacterMapper;
 import tasos.mdb.models.DTO.FilmCharacters.FilmCharacterDTO;
+import tasos.mdb.models.DTO.Movies.MovieDTO;
 import tasos.mdb.services.character.FilmCharacterService;
 
 import java.net.URI;
@@ -22,6 +30,17 @@ public class FilmCharacterController {
 
 
     @GetMapping
+    @Operation(summary = "Gets all the characters")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = FilmCharacterDTO.class)))
+                    }
+            )
+    })
     public ResponseEntity findAll() {
         return ResponseEntity.ok(
                 filmCharacterMapper.filmCharacterToFilmCharacterDTO(
@@ -30,6 +49,23 @@ public class FilmCharacterController {
     }
 
     @GetMapping("{id}")
+    @Operation(summary = "Gets a character by their ID")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = FilmCharacterDTO.class))
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
+            )
+    })
     public ResponseEntity findById(@PathVariable int id) {
         return ResponseEntity.ok(filmCharacterMapper
                 .filmCharacterToFilmCharacterDTO(
@@ -37,6 +73,14 @@ public class FilmCharacterController {
     }
 
     @PostMapping
+    @Operation(summary = "Adds a new character")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Created",
+                    content = @Content
+            )
+    })
     public ResponseEntity add(@RequestBody FilmCharacterDTO entity) throws URISyntaxException{
         filmCharacterService.add(filmCharacterMapper.filmCharacterDTOtoFilmCharacter(entity));
         URI uri = new URI("api/v1/characters/"+entity.getId());
@@ -44,6 +88,24 @@ public class FilmCharacterController {
     }
 
     @PutMapping("{id}")
+    @Operation(summary = "Updates a character by their ID")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Success",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad Request",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content
+            )
+    })
     public ResponseEntity update(@RequestBody FilmCharacterDTO entity,@PathVariable int id){
         if(id!= entity.getId())
             return ResponseEntity.badRequest().build();
@@ -54,6 +116,24 @@ public class FilmCharacterController {
     }
 
     @DeleteMapping("{id}")
+    @Operation(summary = "Deletes a character by their Id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Success",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad Request",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content
+            )
+    })
     public ResponseEntity delete(@PathVariable int id){
         filmCharacterService.deleteById(id);
         return ResponseEntity.noContent().build();

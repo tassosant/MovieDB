@@ -34,6 +34,7 @@ public class Movie {
     @ManyToOne
     @JoinColumn(name = "franchise_id")
     private Franchise franchise;
+
     @ManyToMany
     @JoinTable(
             name = "movies_characters",
